@@ -8,7 +8,41 @@ function render(onClick) {
     header.innerText = "Choose an Hero";
     view.appendChild(header);
 
-    const phrase = document.createElement('h3');
+    const heroImg = document.createElement('img');
+    const heroContainer = document.createElement('article');
+    const heroNameElement = document.createElement('h3');
+
+    const generateBtn = document.createElement('button');
+    generateBtn.innerText = "GENERATE RANDOM HERO";
+    generateBtn.addEventListener('click', async () => {
+        heroImg.innerText = "";
+        heroContainer.innerText = "";
+        heroNameElement.innerText = "";
+
+        const randomId = Math.floor(Math.random() * 731) + 1;
+        const hero = await superHeroService.getHero(randomId);
+
+        heroImg.src = `${hero.image.url}`;
+
+        heroNameElement.innerHTML = `
+                        <h2><strong>Biography</strong></h2>
+                        <br>
+                        <h3><strong>Hero Name:</strong> ${hero.name}</h3>
+                        <br>
+                        <h3><strong>Full Name:</strong> ${hero.biography["full-name"]}</h3>
+                        <br>
+                        `;
+
+        const spaceDiv = document.createElement('div');
+        spaceDiv.className = "space";
+
+        heroContainer.appendChild(heroImg);
+        heroContainer.appendChild(spaceDiv);
+        heroContainer.appendChild(heroNameElement);
+
+        view.appendChild(heroContainer);
+    })
+    view.appendChild(generateBtn);
 }
 
-export default {render};
+export default { render };

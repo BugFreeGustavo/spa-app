@@ -2,11 +2,11 @@
 * 
 * Color Theme Swatches in Hex 
 *
-*   .UI/UX-1-hex { color: #2F4673; }
-*   .UI/UX-2-hex { color: #64758C; }
-*   .UI/UX-3-hex { color: #949BA6; }
-*   .UI/UX-4-hex { color: #D9D9D9; }
-*   .UI/UX-5-hex { color: #0D0D0D; }
+*   #3B5159 darkish blue gray
+*   #F2D0A7 pastel yellow
+*   #D9A384 pastel beige
+*   #BF1111 red
+*   #8C0F0F autumn red
 *
 */
 
@@ -15,17 +15,38 @@
 }
 
 body {
-    background-color: #2F4673;
+    background-color: #3B5159;
     margin: 0;
     padding: 0;
     scroll-behavior: smooth;
     overflow-x: hidden;
     height: 900px;
-    display: flex;
+}
+
+header {
+    background-color: #8C0F0F;
+    width: 100%;
+    height: 140px;
+    border: 5px outset #D9A384;
+    text-align: center;
+    color:#D9A384;
+    font-size: 100px;
+    justify-content: baseline; 
+}
+
+#afterHeader {
+    display: block;
+}
+
+
+h1, h2, h3, h4, h5, h6 {
+    text-align: center;
+    color: #F2D0A7;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 }
 
 #navigation-bar {
-    width: 280px;
+    width: 100%;
     min-height: 50px;
     position: sticky;
     top: 0;
@@ -35,22 +56,23 @@ ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
-    width: 280px;
-    background-color: #f1f1f1;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
 }
 
 li a {
-    border: 2px solid #0D0D0D;
+    border: 5px outset #BF1111;
     border-radius: 5%;
     width: 280px;
-    display: block;
-    background-color: #D9D9D9;
+    display: inline-block;
+    background-color: #D9A384;
     text-align: center;
 }
 
 li a:hover {
-    background-color: #64758C;
-    color: #949494;
+    background-color: #8C0F0F;
+    color: #D9D9D9;
 }
 
 a {
@@ -60,33 +82,44 @@ a {
 }
 
 a:visited {
-    color: #2F4673;
+    color: #3B5159;
 }
 
 a:active {
-    color: #2F4673;
+    color: #3B5159;
 }
 
 #left-content {
-    border: 2px solid white;
-    background-color: #D9D9D9;
-    width: 100vh;
+    border: 5px groove white;
+    background-color: #3B5159;
     padding: 0px 2px;
 }
 
 button {
     cursor: pointer;
-    display: inline-block;
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
     width: 150px;
-    height: 50px;
+    height: 60px;
     border-radius: 10%;
     margin: 5px;
-    border: 2px double dodgerblue;
-    background-color: rgba(0, 139, 139, 0.763);
+    border: 5px groove #BF1111;
+    background-color:#D9A384; 
     font-size: 20px;
 }
 
 button:hover {
-    border: 4px solid dodgerblue;
-    background-color: rgba(0, 139, 139, 0.3);
+    border: 4px solid #BF1111;
+    background-color: #8C0F0F;
+    color: white;
+}
+
+article {
+    border: 2px solid white;
+    display: flex;
+}
+
+.space {
+    width: 20px;
 }

@@ -1,4 +1,4 @@
-const URL = "https://superheroapi.com/api/df63a528d7f5cc04208082fec6eb26ec/";
+const URL = "https://www.superheroapi.com/api.php/df63a528d7f5cc04208082fec6eb26ec/";
 
 async function getHero(id) {
 
