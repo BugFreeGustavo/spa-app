@@ -26,11 +26,10 @@ function render(onClick) {
 
         heroNameElement.innerHTML = `
                         <h2><strong>Biography</strong></h2>
-                        <br>
-                        <h3><strong>Hero Name:</strong> ${hero.name}</h3>
-                        <br>
+                        <h3><strong>Hero:</strong> ${hero.name}</h3>
                         <h3><strong>Full Name:</strong> ${hero.biography["full-name"]}</h3>
-                        <br>
+                        <h3><strong>Aliases:</strong> ${hero.biography["aliases"]}</h3>
+                        <h3><strong>Profession:</strong> ${hero.work["occupation"]}</h3>
                         `;
 
         const spaceDiv = document.createElement('div');

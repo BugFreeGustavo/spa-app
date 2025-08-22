@@ -19,6 +19,10 @@ export default {
         path: '/superHero',
         controller: 'superHeroController'
     },
+    heroDex: {
+        path: '/heroDex',
+        controller: 'heroDexController'
+    },
     currentPath: {
         path: '',
         controller: ''

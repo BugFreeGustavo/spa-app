@@ -8,4 +8,11 @@ async function getHero(id) {
     return hero;
 }
 
-export default { getHero };
+async function getHeroByName(name) {
+    const response = await fetch(URL + `search/${name}`, { redirect: 'follow'});
+    const hero = await response.json();
+
+    return hero;
+}
+
+export default { getHero, getHeroByName };
