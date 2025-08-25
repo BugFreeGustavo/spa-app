@@ -13,7 +13,6 @@ function render(onClick) {
     //Creating table with heroes
     const outerDiv = document.createElement('div');
     outerDiv.className = ('outerDiv');
-
     view.appendChild(outerDiv);
 
     const heroListHeader = document.createElement('table');
@@ -28,41 +27,52 @@ function render(onClick) {
                                 <th>OCCUPATION</th>
                             </tr>`;
 
-    const heroes = onClick;
+    let currentId = 1;
+    const MAX_ID = 731;
+    const batchSize = 10;
 
-    heroes.forEach(hero => {
-        const heroRow = document.createElement('tr');
-        let publisher = "";
-        let alignment = "";
+    async function loadBatch() {
+        const promises = [];
 
-        // CHANGING PUBLISHER TO LOGO
-        if (hero.biography.publisher === "Marvel Comics" || hero.biography.publisher === "Sharon Carter") {
-            publisher = `<td class="tableImg"><img src="${marvelLogo}"></td>`;
-
-        } else if (hero.biography["publisher"] === "DC Comics") {
-            publisher = `<td class="tableImg"><img src="${dcLogo}"></td>`;
-
-        } else if (hero.biography["publisher"] === "NBC - Heroes") {
-            publisher = `<td class="tableImg"><img src="${heroesLogo}"></td>`;
-
-        } else if (hero.biography["publisher"] === "Wildstorm") {
-            publisher = `<td class="tableImg"><img src="${wildstormLogo}"></td>`;
-
-        } else if (hero.biography["publisher"] === "Dark Horse Comics") {
-            publisher = `<td class="tableImg"><img src="${darkhorseLogo}"></td>`;
-        } else {
-            publisher = `<td>${hero.biography["publisher"]}</td>`
+        for (let i = 0; i < batchSize && currentId <= MAX_ID; i++, currentId++) {
+            promises.push(onClick.getHero(currentId));
         }
 
-        // CHANGING ALIGNMENT COLOR
-        if (hero.biography["alignment"] === "good") {
-            alignment = `<td id="good"></td>`;
+        const heroes = await Promise.all(promises);
 
-        } else {
-            alignment = `<td id="bad"></td>`;
-        }
+        heroes.forEach(hero => {
+            const heroRow = document.createElement('tr');
+            let publisher = "";
+            let alignment = "";
 
-        heroRow.innerHTML = `
+            // CHANGING PUBLISHER TO LOGO
+            if (hero.biography.publisher === "Marvel Comics" || hero.biography.publisher === "Sharon Carter") {
+                publisher = `<td class="tableImg"><img src="${marvelLogo}"></td>`;
+
+            } else if (hero.biography["publisher"] === "DC Comics") {
+                publisher = `<td class="tableImg"><img src="${dcLogo}"></td>`;
+
+            } else if (hero.biography["publisher"] === "NBC - Heroes") {
+                publisher = `<td class="tableImg"><img src="${heroesLogo}"></td>`;
+
+            } else if (hero.biography["publisher"] === "Wildstorm") {
+                publisher = `<td class="tableImg"><img src="${wildstormLogo}"></td>`;
+
+            } else if (hero.biography["publisher"] === "Dark Horse Comics") {
+                publisher = `<td class="tableImg"><img src="${darkhorseLogo}"></td>`;
+            } else {
+                publisher = `<td>${hero.biography["publisher"]}</td>`
+            }
+
+            // CHANGING ALIGNMENT COLOR
+            if (hero.biography["alignment"] === "good") {
+                alignment = `<td id="good"></td>`;
+
+            } else {
+                alignment = `<td id="bad"></td>`;
+            }
+
+            heroRow.innerHTML = `
                             <td class="tableImg"><img src="${hero.image.url}"></td>
                             <td>${hero.name}</td>
                             <td>${hero.biography["place-of-birth"]}</td>
@@ -72,10 +82,16 @@ function render(onClick) {
                             <td style="overflow: scroll">${hero.work["occupation"]}</td>
                             `;
 
-        heroListHeader.appendChild(heroRow);
-    });
+            heroListHeader.appendChild(heroRow);
+        });
 
-    outerDiv.appendChild(heroListHeader);
+        if(currentId <= MAX_ID) {
+            setTimeout(loadBatch, 200);
+        }
+       outerDiv.appendChild(heroListHeader); 
+    }
+
+    loadBatch();    
 }
 
 function createElements(element, innerText, parentNode, className, id) {

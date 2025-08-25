@@ -1,12 +1,8 @@
-import superHeroService from "../service/superHeroService.js";
-
 function render(onClick) {
-    const view = document.getElementById('left-content');
-    view.innerHTML = "<br>";
+    const view = destroyPreviousView('left-content');
 
-    const header = document.createElement('h1');
-    header.innerText = "Choose an Hero";
-    view.appendChild(header);
+    // Creating title
+    createElements("h1", "Choose an Hero", view);
 
     const heroImg = document.createElement('img');
     const heroContainer = document.createElement('article');
@@ -20,7 +16,7 @@ function render(onClick) {
         heroNameElement.innerText = "";
 
         const randomId = Math.floor(Math.random() * 731) + 1;
-        const hero = await superHeroService.getHero(randomId);
+        const hero = await onClick.getHero(randomId);
 
         heroImg.src = `${hero.image.url}`;
 
@@ -42,6 +38,27 @@ function render(onClick) {
         view.appendChild(heroContainer);
     })
     view.appendChild(generateBtn);
+}
+
+function createElements(element, innerText, parentNode, className, id) {
+    const outerDiv = document.createElement('div');
+    outerDiv.className = 'outerDiv';
+
+    const newElement = document.createElement(element);
+    newElement.innerText = innerText;
+    newElement.className = className;
+    newElement.id = id;
+
+    parentNode.appendChild(outerDiv);
+    outerDiv.appendChild(newElement);
+
+}
+
+function destroyPreviousView(id) {
+    const view = document.getElementById(id);
+    view.innerHTML = "<br>";
+
+    return view;
 }
 
 export default { render };
